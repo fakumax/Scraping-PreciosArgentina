@@ -1,0 +1,19 @@
+{
+  "name": "scraping-preciosargentina",
+  "version": "1.0.0",
+  "description": "Scraping de Precios Argentina",
+  "scripts": {
+    "start": "ts-node scrape.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.47.0",
+    "@types/node": "^22.5.4",
+    "ts-node": "^10.9.2"
+  },
+  "dependencies": {
+    "playwright": "^1.47.0"
+  }
+}
