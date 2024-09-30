@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Scraping de Precios Argentina",
   "scripts": {
-    "start": "ts-node scrape.ts"
+    "start": "ts-node main.ts"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +14,8 @@
     "ts-node": "^10.9.2"
   },
   "dependencies": {
+    "@types/adm-zip": "^0.5.5",
+    "adm-zip": "^0.5.16",
     "playwright": "^1.47.0"
   }
 }

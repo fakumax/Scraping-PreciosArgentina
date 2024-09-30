@@ -1,5 +1,12 @@
+# Node modules
 node_modules/
+
+# Playwright test results and reports
 /test-results/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# Download and extraction folders
+/descargas/
+/temporal/

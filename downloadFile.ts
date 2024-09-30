@@ -10,7 +10,7 @@ const formatDate = (date: Date): string => {
   return `${year}-${month}-${day}`;
 };
 
-(async () => {
+export const downloadFile = async () => {
   const browser = await chromium.launch({ headless: false });
   const page = await browser.newPage();
 
@@ -88,4 +88,4 @@ const formatDate = (date: Date): string => {
   }
 
   await browser.close();
-})();
+};
