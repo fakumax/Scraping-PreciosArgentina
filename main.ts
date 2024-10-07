@@ -4,14 +4,14 @@ import { createFolderAndExtract } from './createFolderAndExtract'; // Importa la
 
 (async () => {
   try {
-    console.log('Iniciando proceso de scraping...');
-    //await downloadFile(); // Ejecuta el proceso de descarga
+    //console.log('Iniciando proceso de scraping...');
+    //await downloadFile();
 
-    console.log('Extrayendo archivo ZIP...');
-    await extractFile(); // Ejecuta el proceso de extracción
+    //console.log('Extrayendo archivo ZIP...');
+    //await extractFile();
 
     console.log('Procesando archivos extraídos...');
-    await createFolderAndExtract(); // Procesa los archivos extraídos en la carpeta 'Temporal'
+    await createFolderAndExtract();
 
     console.log('Proceso completado.');
   } catch (error) {
