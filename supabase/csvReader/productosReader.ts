@@ -13,6 +13,17 @@ export const readProductosCsv = async (filePath: string) => {
     });
 
     for await (const record of parser) {
+      // Verificar que el registro tenga todas las columnas esperadas
+      if (
+        !record.id_comercio ||
+        !record.id_bandera ||
+        !record.id_sucursal ||
+        !record.id_producto
+      ) {
+        console.log(`Fila ignorada por tener columnas incompletas:`, record);
+        continue; // Salta a la siguiente fila si alguna columna está ausente
+      }
+
       const {
         id_comercio,
         id_bandera,

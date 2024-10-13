@@ -1,6 +1,7 @@
 import { parse } from 'csv-parse';
 import fs from 'fs';
 import client from '../supabase';
+
 // Función para leer y procesar sucursales.csv
 export const readSucursalesCsv = async (filePath: string) => {
   try {
@@ -12,6 +13,17 @@ export const readSucursalesCsv = async (filePath: string) => {
     });
 
     for await (const record of parser) {
+      // Verificar que el registro tenga las columnas esperadas
+      if (
+        !record.id_comercio ||
+        !record.id_bandera ||
+        !record.id_sucursal ||
+        !record.sucursales_nombre
+      ) {
+        console.log(`Fila ignorada por tener columnas incompletas:`, record);
+        continue; // Salta a la siguiente fila si alguna columna importante está ausente
+      }
+
       const {
         id_comercio,
         id_bandera,
