@@ -11,3 +11,5 @@ node_modules/
 /descargas/
 /temporal/
 .env
+# Ignorar archivo de bloqueo de pnpm
+pnpm-lock.yaml
