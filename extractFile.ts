@@ -23,10 +23,16 @@ export const extractFile = async () => {
     const zipFilePath = path.join(downloadDir, zipFiles[0]);
     const zip = new AdmZip(zipFilePath);
 
+    // Obtener el número de entradas (archivos y carpetas) en el archivo ZIP
+    const totalFiles = zip.getEntries().length;
+
     // Extraer el contenido del archivo ZIP en la carpeta 'Temporal'
     zip.extractAllTo(tempDir, true);
+    console.log(`Se extrajeron ${totalFiles} archivos en la carpeta Temporal.`);
 
-    console.log(`Archivo ${zipFiles[0]} extraído correctamente en la carpeta Temporal.`);
+    // Eliminar el archivo ZIP después de extraerlo
+    await fs.unlink(zipFilePath);
+    console.log(`Archivo ${zipFiles[0]} eliminado de la carpeta descargas.`);
   } catch (error) {
     console.error('Error al extraer el archivo ZIP:', error);
   }

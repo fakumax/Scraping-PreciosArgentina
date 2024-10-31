@@ -3,6 +3,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import client from './supabase/supabase';
 import { createAllTables } from './supabase/tables/createTables';
+import { processCSVFilesInDirectory } from './supabase/csvReader';
 
 export const createFolderAndExtract = async () => {
   try {
@@ -26,30 +27,19 @@ export const createFolderAndExtract = async () => {
       await createAllTables();
 
       // Procesar cada archivo ZIP
-      // for (const zipFile of zipFiles) {
-      //   const zipFilePath = path.join(tempDir, zipFile);
-      //   const zipFolderName = path.basename(zipFile, '.zip');
-      //   const targetDir = path.join(tempDir, zipFolderName);
+      for (const zipFile of zipFiles) {
+        const zipFilePath = path.join(tempDir, zipFile);
+        const zipFolderName = path.basename(zipFile, '.zip');
+        const targetDir = path.join(tempDir, zipFolderName);
 
-      //   // Extraer el archivo ZIP en la carpeta correspondiente
-      //   await fs.mkdir(targetDir, { recursive: true });
-      //   const zip = new AdmZip(zipFilePath);
-      //   zip.extractAllTo(targetDir, true);
+        // Extraer el archivo ZIP en la carpeta correspondiente
+        await fs.mkdir(targetDir, { recursive: true });
+        const zip = new AdmZip(zipFilePath);
+        zip.extractAllTo(targetDir, true);
 
-      //   console.log(`Archivos del ZIP ${zipFile} extraídos en la carpeta: ${targetDir}`);
-
-      //   // Leer los archivos extraídos y procesar los datos
-      //   const extractedFiles = await fs.readdir(targetDir);
-      //   const csvFiles = extractedFiles.filter((file) => path.extname(file) === '.csv');
-
-      //   for (const csvFile of csvFiles) {
-      //     const csvFilePath = path.join(targetDir, csvFile);
-      //     // Leer el archivo CSV y hacer las inserciones en la base de datos
-      //     console.log(`Insertando datos del archivo CSV: ${csvFile}`);
-
-      //     // Aquí podés agregar la lógica para leer el CSV e insertar datos en las tablas correspondientes
-      //   }
-      // }
+        // Llama a processCSVFilesInDirectory para procesar los archivos CSV extraídos
+        await processCSVFilesInDirectory(targetDir);
+      }
     } catch (queryError) {
       console.error('Error al crear las tablas o procesar los datos:', queryError);
     } finally {
