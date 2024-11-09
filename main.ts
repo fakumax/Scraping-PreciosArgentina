@@ -4,11 +4,10 @@ import { createFolderAndExtract } from './createFolderAndExtract';
 
 (async () => {
   try {
-    // console.log('Iniciando proceso descarga de archivo...');
-    // await downloadFile();
-    //console.log('Extrayendo archivo ZIP...');
-    //await extractFile();
-
+    console.log('Iniciando proceso descarga de archivo...');
+    await downloadFile();
+    console.log('Extrayendo archivo ZIP...');
+    await extractFile();
     console.log('Procesando archivos extraídos...');
     await createFolderAndExtract();
 
