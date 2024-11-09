@@ -85,7 +85,17 @@ export const downloadFile = async () => {
     });
 
     response.data.pipe(writer);
-    writer.on('error', (err) => console.error('Error al descargar el archivo:', err));
+
+    return new Promise((resolve, reject) => {
+      writer.on('finish', () => {
+        console.log('\nDescarga completada.');
+        resolve(filePath);
+      });
+      writer.on('error', (err) => {
+        console.error('Error al descargar el archivo:', err);
+        reject(err);
+      });
+    });
   } else {
     console.log(
       'No se encontró ningún botón DESCARGAR para la fecha de hoy o la más cercana disponible.'

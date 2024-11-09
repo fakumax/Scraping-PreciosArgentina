@@ -4,7 +4,8 @@ export const createComercioTable = async () => {
   try {
     await client.query(`
       CREATE TABLE IF NOT EXISTS comercio (
-        id_comercio INT PRIMARY KEY,
+        id SERIAL PRIMARY KEY,
+        id_comercio INT,
         id_bandera INT,
         comercio_cuit VARCHAR(50),
         comercio_razon_social VARCHAR(255),
