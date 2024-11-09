@@ -4,10 +4,11 @@ export const createProductosTable = async () => {
   try {
     await client.query(`
       CREATE TABLE IF NOT EXISTS productos (
+        id SERIAL PRIMARY KEY, 
         id_comercio INT,
         id_bandera INT,
         id_sucursal INT,
-        id_producto VARCHAR(50) PRIMARY KEY,
+        id_producto VARCHAR(50), 
         productos_ean VARCHAR(50),
         productos_descripcion VARCHAR(255),
         productos_cantidad_presentacion FLOAT,

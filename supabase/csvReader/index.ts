@@ -57,15 +57,19 @@ export const processCSVFilesInDirectory = async (directoryPath: any) => {
       const csvFilePath = path.join(directoryPath, csvFile);
       updateProgress(`Procesando archivo ${++count} de ${csvFiles.length}: ${csvFile}`);
 
-      if (csvFile.includes('comercio')) {
-        await readComercioCsv(csvFilePath);
-      }
+      // if (csvFile.includes('comercio')) {
+      //   await readComercioCsv(csvFilePath);
+      // }
       // else if (csvFile.includes('productos')) {
       //   await readProductosCsv(csvFilePath);
-      // } else if (csvFile.includes('sucursales')) {
-      //   await readSucursalesCsv(csvFilePath);
       // }
-      else {
+      // if (csvFile.includes('sucursales')) {
+      //   await readSucursalesCsv(csvFilePath);
+
+      if (csvFile.includes('productos')) {
+        console.log(`Procesando archivo de productos: ${csvFile}`);
+        await readProductosCsv(csvFilePath);
+      } else {
         console.log(`\nArchivo ${csvFile} no coincide con ningún lector definido.`);
       }
     }

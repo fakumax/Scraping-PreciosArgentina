@@ -4,9 +4,10 @@ export const createSucursalesTable = async () => {
   try {
     await client.query(`
       CREATE TABLE IF NOT EXISTS sucursales (
+        id SERIAL PRIMARY KEY,
         id_comercio INT,
         id_bandera INT,
-        id_sucursal INT PRIMARY KEY,
+        id_sucursal INT,
         sucursales_nombre VARCHAR(255),
         sucursales_tipo VARCHAR(50),
         sucursales_calle VARCHAR(255),

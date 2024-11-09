@@ -1,15 +1,34 @@
 import { parse } from 'csv-parse';
-import fs from 'fs';
+import fs from 'fs/promises';
 import client from '../supabase';
+
+// Función para eliminar las últimas dos líneas de un archivo
+async function removeLastTwoLines(filePath: string) {
+  try {
+    const data = await fs.readFile(filePath, 'utf-8');
+    const lines = data.trim().split('\n');
+
+    // Elimina las últimas dos líneas
+    const filteredLines = lines.slice(0, -2);
+
+    // Devuelve el contenido del archivo sin las últimas dos líneas
+    return filteredLines.join('\n');
+  } catch (error) {
+    console.error('Error al eliminar las últimas dos líneas:', error);
+    throw error;
+  }
+}
 
 // Función para leer y procesar productos.csv
 export const readProductosCsv = async (filePath: string) => {
   try {
-    const fileContent = fs.readFileSync(filePath, 'utf-8');
-    const parser = parse(fileContent, {
+    const cleanedCsv = await removeLastTwoLines(filePath); // Elimina las últimas dos líneas
+
+    const parser = parse(cleanedCsv, {
       delimiter: '|',
       columns: true,
       skip_empty_lines: true,
+      trim: true,
     });
 
     for await (const record of parser) {
@@ -65,8 +84,7 @@ export const readProductosCsv = async (filePath: string) => {
           productos_precio_unitario_promo2,
           productos_leyenda_promo2
         )
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)
-        ON CONFLICT (id_producto) DO NOTHING;
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)
         `,
         [
           parseInt(id_comercio, 10),
